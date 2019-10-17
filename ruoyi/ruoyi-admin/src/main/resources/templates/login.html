@@ -26,7 +26,7 @@
     <div class="signinpanel">
         <div class="row">
             <div class="col-sm-7">
-                <div class="signin-info">
+                <!--<div class="signin-info">
                     <div class="logopanel m-b">
                         <h1><img alt="[ 若依 ]" src="../static/ruoyi.png" th:src="@{/ruoyi.png}"></h1>
                     </div>
@@ -40,7 +40,7 @@
                         <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> Bootstrap</li>
                     </ul>
                     <strong>还没有账号？ <a href="#">立即注册&raquo;</a></strong>
-                </div>
+                </div>-->
             </div>
             <div class="col-sm-5">
                 <form id="signupForm">
@@ -60,16 +60,17 @@
 					</div>
                     <div class="checkbox-custom" th:classappend="${captchaEnabled==false} ? 'm-t'">
 				        <input type="checkbox" id="rememberme" name="rememberme"> <label for="rememberme">记住我</label>
+                        <strong>还没有账号？ <a href="#">立即注册&raquo;</a></strong>
 				    </div>
                     <button class="btn btn-success btn-block" id="btnSubmit" data-loading="正在验证登录，请稍后...">登录</button>
                 </form>
             </div>
         </div>
-        <div class="signup-footer">
+     <!--   <div class="signup-footer">
             <div class="pull-left">
                 &copy; 2019 All Rights Reserved. RuoYi <br>
             </div>
-        </div>
+        </div>-->
     </div>
 <script th:inline="javascript"> var ctx = [[@{/}]]; var captchaType = [[${captchaType}]]; </script>
 <!-- 全局js -->
