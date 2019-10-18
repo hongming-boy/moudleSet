@@ -1,6 +1,8 @@
 package com.ruoyi.moudleSet.service.impl;
 
 import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.moudleSet.mapper.MsFileMapper;
@@ -53,6 +55,7 @@ public class MsFileServiceImpl implements IMsFileService
     @Override
     public int insertMsFile(MsFile msFile)
     {
+        msFile.setId(UUID.randomUUID().toString());
         return msFileMapper.insertMsFile(msFile);
     }
 
