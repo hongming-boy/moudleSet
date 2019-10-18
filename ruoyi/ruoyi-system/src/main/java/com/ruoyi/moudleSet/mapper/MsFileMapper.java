@@ -1,6 +1,8 @@
 package com.ruoyi.moudleSet.mapper;
 
 import com.ruoyi.moudleSet.domain.MsFile;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 /**
@@ -9,6 +11,7 @@ import java.util.List;
  * @author moudleSet
  * @date 2019-10-18
  */
+@Repository
 public interface MsFileMapper 
 {
     /**
