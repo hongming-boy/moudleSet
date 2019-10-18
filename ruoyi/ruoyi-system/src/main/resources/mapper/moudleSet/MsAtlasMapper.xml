@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.moudleSet.mapper.MsAtlasMapper">
+    
+    <resultMap type="MsAtlas" id="MsAtlasResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="zwd"    column="zwd"    />
+        <result property="address"    column="address"    />
+    </resultMap>
+
+    <sql id="selectMsAtlasVo">
+        select id, name, zwd, address from ms_atlas
+    </sql>
+
+    <select id="selectMsAtlasList" parameterType="MsAtlas" resultMap="MsAtlasResult">
+        <include refid="selectMsAtlasVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="zwd != null  and zwd != ''"> and zwd = #{zwd}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+        </where>
+    </select>
+    
+    <select id="selectMsAtlasById" parameterType="Long" resultMap="MsAtlasResult">
+        <include refid="selectMsAtlasVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertMsAtlas" parameterType="MsAtlas">
+        insert into ms_atlas
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="name != null  and name != ''">name,</if>
+            <if test="zwd != null  and zwd != ''">zwd,</if>
+            <if test="address != null  and address != ''">address,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null ">#{id},</if>
+            <if test="name != null  and name != ''">#{name},</if>
+            <if test="zwd != null  and zwd != ''">#{zwd},</if>
+            <if test="address != null  and address != ''">#{address},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMsAtlas" parameterType="MsAtlas">
+        update ms_atlas
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null  and name != ''">name = #{name},</if>
+            <if test="zwd != null  and zwd != ''">zwd = #{zwd},</if>
+            <if test="address != null  and address != ''">address = #{address},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMsAtlasById" parameterType="Long">
+        delete from ms_atlas where id = #{id}
+    </delete>
+
+    <delete id="deleteMsAtlasByIds" parameterType="String">
+        delete from ms_atlas where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

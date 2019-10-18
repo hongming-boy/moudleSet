@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增地图')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-atlas-add">
+            <div class="row">
+                <table class="table table-bordered" width="50%">
+                    <tr style="height: 35px;">
+                        <td class="col-md-2 " style="height: 30px;text-align: center;  background-color: whitesmoke;width: 150px">创建人：</td>
+                        <td class="col-md-8"  style="position: relative;">
+                            <input name="name" class="form-control" type="text">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <table class="table table-bordered" width="50%">
+                   <!-- <input type="button" class="btn-success" onclick="openMap('地图')" value="地址获取">-->
+                    <tr style="height: 35px;">
+                        <td class="col-md-2 " style="height: 30px;text-align: center;  background-color: whitesmoke;width: 150px">经纬度：</td>
+                        <td class="col-md-8"  style="position: relative;">
+                            <input name="zwd" class="form-control" type="text" id="jwd" readonly style="border: 0px">
+                        </td>
+                    </tr>
+                    <tr style="height: 35px;">
+                        <td class="col-md-2 " style="height: 30px;text-align: center;  background-color: whitesmoke;width: 150px" onclick="openMap('地图')">详细地址：</td>
+                        <td class="col-md-8"  style="position: relative;">
+                            <input name="address" class="form-control" type="text" id="address" readonly style="border: 0px" onclick="openMap()">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script type="text/javascript">
+        var prefix = ctx + "moudleSet/atlas"
+        $("#form-atlas-add").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-atlas-add').serialize());
+            }
+        }
+        function openMap() {
+            sessionStorage.setItem('placeJwd',$("#placeJwd").val());
+            window.IspPoint = false;
+            parent.layer.open({
+                type: 2,//弹窗类型 ['dialog', 'page', 'iframe', 'loading', 'tips']
+                area: ['1350px', '650px'],
+                shift: 2,//可选动画类型0-6
+                scrollbar: false,
+                title: "地图",
+                closeBtn: false,
+                content: prefix + "/openMap",
+                btn: ['确定','取消'],
+                //这里yes:function为设置的第一个按钮的function，后面设置的按钮默认点击关闭
+                yes: function (index, layero) {
+                    //需要回显的值
+                    //layero为当前的DOM对象，去找打开的iframe转成DOM对象调用子页面其中的function (callbackdata)
+                    var res = $(layero).find("iframe")[0].contentWindow.callbackdata();
+                    //把回显的值赋给需要显示的地方
+                    $("#jwd").val(res.placeJwd);
+                    $("#address").val(res.places);
+                    //关闭子页面
+                    parent.layer.close(index);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
