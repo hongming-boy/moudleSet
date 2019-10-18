@@ -6,12 +6,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="MsFile" id="MsFileResult">
         <result property="id"    column="id"    />
-        <result property="filename"    column="fileName"    />
-        <result property="filepath"    column="filePath"    />
-        <result property="filetype"    column="fileType"    />
-        <result property="createtime"    column="createTime"    />
-        <result property="updatetime"    column="updateTime"    />
-        <result property="savename"    column="saveName"    />
+        <result property="fileName"    column="fileName"    />
+        <result property="filePath"    column="filePath"    />
+        <result property="fileType"    column="fileType"    />
+        <result property="createTime"    column="createTime"    />
+        <result property="updateTime"    column="updateTime"    />
+        <result property="saveName"    column="saveName"    />
     </resultMap>
 
     <sql id="selectMsFileVo">
@@ -21,8 +21,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectMsFileList" parameterType="MsFile" resultMap="MsFileResult">
         <include refid="selectMsFileVo"/>
         <where>  
-            <if test="filename != null  and filename != ''"> and fileName like concat('%', #{filename}, '%')</if>
-            <if test="filetype != null  and filetype != ''"> and fileType = #{filetype}</if>
+            <if test="fileName != null  and fileName != ''"> and fileName like concat('%', #{fileName}, '%')</if>
+            <if test="fileType != null  and fileType != ''"> and fileType = #{fileType}</if>
         </where>
     </select>
     
@@ -35,33 +35,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into ms_file
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null  and id != ''">id,</if>
-            <if test="filename != null  and filename != ''">fileName,</if>
-            <if test="filepath != null  and filepath != ''">filePath,</if>
-            <if test="filetype != null  and filetype != ''">fileType,</if>
-            <if test="createtime != null ">createTime,</if>
-            <if test="updatetime != null ">updateTime,</if>
-            <if test="savename != null  and savename != ''">saveName,</if>
+            <if test="fileName != null  and fileName != ''">fileName,</if>
+            <if test="filePath != null  and filePath != ''">filePath,</if>
+            <if test="fileType != null  and fileType != ''">fileType,</if>
+            <if test="createTime != null ">createTime,</if>
+            <if test="updateTime != null ">updateTime,</if>
+            <if test="saveName != null  and saveName != ''">saveName,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null  and id != ''">#{id},</if>
-            <if test="filename != null  and filename != ''">#{filename},</if>
-            <if test="filepath != null  and filepath != ''">#{filepath},</if>
-            <if test="filetype != null  and filetype != ''">#{filetype},</if>
-            <if test="createtime != null ">#{createtime},</if>
-            <if test="updatetime != null ">#{updatetime},</if>
-            <if test="savename != null  and savename != ''">#{savename},</if>
+            <if test="fileName != null  and fileName != ''">#{fileName},</if>
+            <if test="filePath != null  and filePath != ''">#{filePath},</if>
+            <if test="fileType != null  and fileType != ''">#{fileType},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="saveName != null  and saveName != ''">#{saveName},</if>
          </trim>
     </insert>
 
     <update id="updateMsFile" parameterType="MsFile">
         update ms_file
         <trim prefix="SET" suffixOverrides=",">
-            <if test="filename != null  and filename != ''">fileName = #{filename},</if>
-            <if test="filepath != null  and filepath != ''">filePath = #{filepath},</if>
-            <if test="filetype != null  and filetype != ''">fileType = #{filetype},</if>
-            <if test="createtime != null ">createTime = #{createtime},</if>
-            <if test="updatetime != null ">updateTime = #{updatetime},</if>
-            <if test="savename != null  and savename != ''">saveName = #{savename},</if>
+            <if test="fileName != null  and fileName != ''">fileName = #{fileName},</if>
+            <if test="filePath != null  and filePath != ''">filePath = #{filePath},</if>
+            <if test="fileType != null  and fileType != ''">fileType = #{fileType},</if>
+            <if test="createTime != null ">createTime = #{createTime},</if>
+            <if test="updateTime != null ">updateTime = #{updateTime},</if>
+            <if test="saveName != null  and saveName != ''">saveName = #{saveName},</if>
         </trim>
         where id = #{id}
     </update>
