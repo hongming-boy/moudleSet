@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.moudleSet.mapper.MsFileMapper">
+    
+    <resultMap type="MsFile" id="MsFileResult">
+        <result property="id"    column="id"    />
+        <result property="filename"    column="fileName"    />
+        <result property="filepath"    column="filePath"    />
+        <result property="filetype"    column="fileType"    />
+        <result property="createtime"    column="createTime"    />
+        <result property="updatetime"    column="updateTime"    />
+        <result property="savename"    column="saveName"    />
+    </resultMap>
+
+    <sql id="selectMsFileVo">
+        select id, fileName, filePath, fileType, createTime, updateTime, saveName from ms_file
+    </sql>
+
+    <select id="selectMsFileList" parameterType="MsFile" resultMap="MsFileResult">
+        <include refid="selectMsFileVo"/>
+        <where>  
+            <if test="filename != null  and filename != ''"> and fileName like concat('%', #{filename}, '%')</if>
+            <if test="filetype != null  and filetype != ''"> and fileType = #{filetype}</if>
+        </where>
+    </select>
+    
+    <select id="selectMsFileById" parameterType="String" resultMap="MsFileResult">
+        <include refid="selectMsFileVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertMsFile" parameterType="MsFile">
+        insert into ms_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''">id,</if>
+            <if test="filename != null  and filename != ''">fileName,</if>
+            <if test="filepath != null  and filepath != ''">filePath,</if>
+            <if test="filetype != null  and filetype != ''">fileType,</if>
+            <if test="createtime != null ">createTime,</if>
+            <if test="updatetime != null ">updateTime,</if>
+            <if test="savename != null  and savename != ''">saveName,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''">#{id},</if>
+            <if test="filename != null  and filename != ''">#{filename},</if>
+            <if test="filepath != null  and filepath != ''">#{filepath},</if>
+            <if test="filetype != null  and filetype != ''">#{filetype},</if>
+            <if test="createtime != null ">#{createtime},</if>
+            <if test="updatetime != null ">#{updatetime},</if>
+            <if test="savename != null  and savename != ''">#{savename},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMsFile" parameterType="MsFile">
+        update ms_file
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="filename != null  and filename != ''">fileName = #{filename},</if>
+            <if test="filepath != null  and filepath != ''">filePath = #{filepath},</if>
+            <if test="filetype != null  and filetype != ''">fileType = #{filetype},</if>
+            <if test="createtime != null ">createTime = #{createtime},</if>
+            <if test="updatetime != null ">updateTime = #{updatetime},</if>
+            <if test="savename != null  and savename != ''">saveName = #{savename},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMsFileById" parameterType="String">
+        delete from ms_file where id = #{id}
+    </delete>
+
+    <delete id="deleteMsFileByIds" parameterType="String">
+        delete from ms_file where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
