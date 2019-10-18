@@ -1,5 +1,6 @@
 package com.ruoyi.moudleSet.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -9,6 +10,8 @@ import com.ruoyi.moudleSet.mapper.MsFileMapper;
 import com.ruoyi.moudleSet.domain.MsFile;
 import com.ruoyi.moudleSet.service.IMsFileService;
 import com.ruoyi.common.core.text.Convert;
+
+import static com.ruoyi.moudleSet.utils.OfficeUtils.distinguishType;
 
 /**
  * 上传文件Service业务层处理
@@ -56,6 +59,8 @@ public class MsFileServiceImpl implements IMsFileService
     public int insertMsFile(MsFile msFile)
     {
         msFile.setId(UUID.randomUUID().toString());
+        msFile.setFileType(distinguishType(msFile.getFileName()));
+        msFile.setCreateTime(new Date());
         return msFileMapper.insertMsFile(msFile);
     }
 

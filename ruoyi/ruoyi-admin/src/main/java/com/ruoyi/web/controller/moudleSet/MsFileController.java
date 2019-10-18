@@ -1,6 +1,12 @@
 package com.ruoyi.web.controller.moudleSet;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
+
+import com.ruoyi.common.config.Global;
+import com.ruoyi.common.utils.file.FileUploadUtils;
+import com.ruoyi.framework.web.domain.server.Sys;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +21,9 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
 import org.springframework.web.multipart.MultipartFile;
+
+import static com.ruoyi.moudleSet.utils.OfficeUtils.distinguishType;
+import static com.ruoyi.moudleSet.utils.OfficeUtils.subFilePath;
 
 /**
  * 上传文件Controller
@@ -122,7 +131,26 @@ public class MsFileController extends BaseController
 
     @PostMapping("/addFile")
     @ResponseBody
-    public AjaxResult addFile(@RequestParam("filePath")MultipartFile file){
-        return toAjax(1);
+    public AjaxResult addFile(@RequestParam("file")MultipartFile file) throws IOException {
+        // 上传文件路径
+        String filePath = "";
+        // 新文件名称
+        String newFileName = "";
+        // 上传文件名称
+        String fileName = "";
+        if(distinguishType(file.getOriginalFilename()) != null){
+            fileName = file.getOriginalFilename();
+            // 获取上传文件路径
+            filePath = Global.getProfile()+Global.getFileUpload();
+            // 上传并返回新文件名称(包含路径)
+            newFileName = FileUploadUtils.upload(filePath,file);
+            String [] str = subFilePath(newFileName);
+
+            return AjaxResult.success(new String[]{str[0],str[1],fileName});
+        }else{
+            return AjaxResult.error("上传失败");
+        }
+
     }
 }
+

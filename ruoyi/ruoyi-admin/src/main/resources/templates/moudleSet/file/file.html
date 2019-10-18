@@ -11,11 +11,11 @@
                     <div class="select-list">
                         <ul>
                             <li>
-                                <p>文件名字：</p>
+                                <p style="width: 80px">文件名字：</p>
                                 <input type="text" name="fileName"/>
                             </li>
                             <li>
-                                <p>文件类型：</p>
+                                <p style="width: 80px">文件类型：</p>
                                 <select name="fileType" th:with="type=${@dict.getType('fileType')}">
                                     <option value="">所有类型</option>
                                     <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
@@ -99,7 +99,7 @@
                 },
                 {
                     field : 'createTime',
-                    title : '创建时间'
+                    title : '上传时间'
                 }]
             };
             $.table.init(options);

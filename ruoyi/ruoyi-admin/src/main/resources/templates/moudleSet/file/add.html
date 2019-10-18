@@ -7,10 +7,13 @@
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-file-add">
-            <div class="form-group">    
+            <input id="fileName" name="fileName" type="hidden">
+            <input id="filePath" name="filePath" type="hidden">
+            <input id="saveName" name="saveName" type="hidden">
+            <div class="form-group">
                 <label class="col-sm-3 control-label">文件路径：</label>
                 <div class="col-sm-8">
-                    <input id="filePath" name="filePath" class="form-control" type="file" multiple>
+                    <input id="file" name="file" class="form-control" type="file" multiple>
                 </div>
             </div>
         </form>
@@ -31,7 +34,7 @@
         });
 
         //初始化文件上传框
-        $("#filePath").fileinput({
+        $("#file").fileinput({
             'theme': 'explorer',
             'uploadUrl':prefix+"/addFile",
             overwriteInitial: false,
@@ -45,13 +48,17 @@
             allowedFileExtensions:['doc','docx','xls','xlsx','pdf'],
         });
         var state = 'error';
-        $('#filePath').on('fileuploaded', function(event, data, previewId, index) {
-            if(typeof(data.files) != 'undefined'){
+        $('#file').on('fileuploaded', function(event, data, previewId, index) {
+            var responseData = data.response.data;
+            $("#saveName").val(responseData[0]);
+            $("#filePath").val(responseData[1]);
+            $("#fileName").val(responseData[2]);
+            if(typeof(responseData) != 'undefined'){
                 state = "success";
             }
         });
 
-        $('#filePath').on('filebatchuploadcomplete',function (event,files,extra) {
+        $('#file').on('filebatchuploadcomplete',function (event,files,extra) {
             if("error" == state){
                 layer.msg('上传失败', {icon: 5});//弹框提示
                 return false;

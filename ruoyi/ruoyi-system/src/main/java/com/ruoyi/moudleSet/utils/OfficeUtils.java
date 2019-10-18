@@ -17,31 +17,31 @@ public class OfficeUtils {
      * @param fileName 文件名称（含后缀）
      * @return int类型 -1：未识别(不匹配文件类型或没有包含后缀），1：world，2：excel，3：pdf，4：txt
      */
-    public static int distinguishType(String fileName){
+    public static String distinguishType(String fileName){
 
         if(!fileName.contains(STR)){
-            return -1;
+            return null;
         }
 
         String suffix = fileName.substring(fileName.lastIndexOf(STR)+1);
 
         if(SUFFIX_DOC.equals(suffix)||SUFFIX_DOCX.equals(suffix)){
-            return 1;
+            return "world";
         }
 
         if(SUFFIX_XLS.equals(suffix)||SUFFIX_XLSX.equals(suffix)){
-            return 2;
+            return "excel";
         }
 
         if(SUFFIX_PDF.equals(suffix)){
-            return 3;
+            return "pdf";
         }
 
         if(SUFFIX_TXT.equals(suffix)){
-            return 4;
+            return "txt";
         }
 
-        return -1;
+        return null;
     }
 
     /**
@@ -63,6 +63,17 @@ public class OfficeUtils {
         return AnnexName;
     }
 
+    public static String[] subFilePath(String fileName){
 
+        if(!fileName.contains(fileName)){
+            return new String[]{};
+        }
+
+        String newFileName = fileName.substring(fileName.lastIndexOf("/")+1);
+
+        String newFilePath = fileName.substring(0,fileName.lastIndexOf("/"));
+
+        return new String[]{newFileName,newFilePath};
+    }
 
 }

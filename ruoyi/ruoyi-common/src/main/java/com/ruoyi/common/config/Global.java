@@ -139,4 +139,11 @@ public class Global
     {
         return getProfile() + "/upload";
     }
+
+    /**
+     * 获取部分文件上传路径
+     */
+    public static String getFileUpload(){
+        return getConfig("ruoyi.fileUpload");
+    }
 }
