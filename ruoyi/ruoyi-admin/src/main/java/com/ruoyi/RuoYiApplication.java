@@ -1,8 +1,11 @@
 package com.ruoyi;
 
+import com.ruoyi.common.config.Global;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+
+import static com.ruoyi.moudleSet.utils.ConsoleOutputPicture.getData;
 
 /**
  * 启动程序
@@ -10,21 +13,25 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * @author ruoyi
  */
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
-public class RuoYiApplication
-{
+public class RuoYiApplication {
+
+    private static String Console = Global.getConfig("ConsoleOutputPicture.Picture");
+
     public static void main(String[] args)
     {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(RuoYiApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  若依启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
-                " .-------.       ____     __        \n" +
-                " |  _ _   \\      \\   \\   /  /    \n" +
-                " | ( ' )  |       \\  _. /  '       \n" +
-                " |(_ o _) /        _( )_ .'         \n" +
-                " | (_,_).' __  ___(_ o _)'          \n" +
-                " |  |\\ \\  |  ||   |(_,_)'         \n" +
-                " |  | \\ `'   /|   `-'  /           \n" +
-                " |  |  \\    /  \\      /           \n" +
-                " ''-'   `'-'    `-..-'              ");
+        System.err.println(
+                "$$\\      $$\\                                             $$\\       $$\\                        $$$$$$\\                          $$\\     \n" +
+                        "$$$\\    $$$ |                                            $$ |      $$ |                      $$  __$$\\                         $$ |    \n" +
+                        "$$$$\\  $$$$ |       $$$$$$\\        $$\\   $$\\        $$$$$$$ |      $$ |       $$$$$$\\        $$ /  \\__|       $$$$$$\\        $$$$$$\\   \n" +
+                        "$$\\$$\\$$ $$ |      $$  __$$\\       $$ |  $$ |      $$  __$$ |      $$ |      $$  __$$\\       \\$$$$$$\\        $$  __$$\\       \\_$$  _|  \n" +
+                        "$$ \\$$$  $$ |      $$ /  $$ |      $$ |  $$ |      $$ /  $$ |      $$ |      $$$$$$$$ |       \\____$$\\       $$$$$$$$ |        $$ |    \n" +
+                        "$$ |\\$  /$$ |      $$ |  $$ |      $$ |  $$ |      $$ |  $$ |      $$ |      $$   ____|      $$\\   $$ |      $$   ____|        $$ |$$\\ \n" +
+                        "$$ | \\_/ $$ |      \\$$$$$$  |      \\$$$$$$  |      \\$$$$$$$ |      $$ |      \\$$$$$$$\\       \\$$$$$$  |      \\$$$$$$$\\         \\$$$$  |\n" +
+                        "\\__|     \\__|       \\______/        \\______/        \\_______|      \\__|       \\_______|       \\______/        \\_______|         \\____/ "
+        );
+        // 下面方法是输出图片的Api
+        // getData(Console);
     }
 }
