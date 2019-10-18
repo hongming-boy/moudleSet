@@ -122,7 +122,7 @@ public class MsFileController extends BaseController
 
     @PostMapping("/addFile")
     @ResponseBody
-    public AjaxResult addFile(@RequestParam("filePath")MultipartFile file,MsFile msFile){
+    public AjaxResult addFile(@RequestParam("filePath")MultipartFile file){
         return toAjax(1);
     }
 }

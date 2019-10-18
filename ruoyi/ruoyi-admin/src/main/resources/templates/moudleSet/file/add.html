@@ -44,20 +44,19 @@
             },
             allowedFileExtensions:['doc','docx','xls','xlsx','pdf'],
         });
-        var count_str = '';
+        var state = 'error';
         $('#filePath').on('fileuploaded', function(event, data, previewId, index) {
-            if(typeof(data.response.id) != 'undefined'){
-                count_str = count_str+data.response.id+',';
-                console.log(count_str);
+            if(typeof(data.files) != 'undefined'){
+                state = "success";
             }
         });
 
         $('#filePath').on('filebatchuploadcomplete',function (event,files,extra) {
-            if(count_str.length == 0){
-                layer.msg('上传失败', {icon: 0});//弹框提示
+            if("error" == state){
+                layer.msg('上传失败', {icon: 5});//弹框提示
                 return false;
             }else{
-                layer.msg('上传成功', {icon: 2});//弹框提示
+                layer.msg('上传成功', {icon: 6});//弹框提示
                 setTimeout(function(){ //执行延时关闭
                   return true;
                 },1000);
