@@ -12,10 +12,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="createTime"    column="createTime"    />
         <result property="updateTime"    column="updateTime"    />
         <result property="saveName"    column="saveName"    />
+        <result property="state"    column="state"    />
     </resultMap>
 
     <sql id="selectMsFileVo">
-        select id, fileName, filePath, fileType, createTime, updateTime, saveName from ms_file
+        select id, fileName, filePath, fileType, createTime, updateTime, saveName, state from ms_file
     </sql>
 
     <select id="selectMsFileList" parameterType="MsFile" resultMap="MsFileResult">
@@ -38,6 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="fileName != null  and fileName != ''">fileName,</if>
             <if test="filePath != null  and filePath != ''">filePath,</if>
             <if test="fileType != null  and fileType != ''">fileType,</if>
+            <if test="state != null  and state != ''">state,</if>
             <if test="createTime != null ">createTime,</if>
             <if test="updateTime != null ">updateTime,</if>
             <if test="saveName != null  and saveName != ''">saveName,</if>
@@ -47,6 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="fileName != null  and fileName != ''">#{fileName},</if>
             <if test="filePath != null  and filePath != ''">#{filePath},</if>
             <if test="fileType != null  and fileType != ''">#{fileType},</if>
+            <if test="state != null  and state != ''">#{state},</if>
             <if test="createTime != null ">#{createTime},</if>
             <if test="updateTime != null ">#{updateTime},</if>
             <if test="saveName != null  and saveName != ''">#{saveName},</if>
@@ -59,6 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="fileName != null  and fileName != ''">fileName = #{fileName},</if>
             <if test="filePath != null  and filePath != ''">filePath = #{filePath},</if>
             <if test="fileType != null  and fileType != ''">fileType = #{fileType},</if>
+            <if test="state != null  and state != ''">state = #{state},</if>
             <if test="createTime != null ">createTime = #{createTime},</if>
             <if test="updateTime != null ">updateTime = #{updateTime},</if>
             <if test="saveName != null  and saveName != ''">saveName = #{saveName},</if>

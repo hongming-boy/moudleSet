@@ -61,4 +61,5 @@ public interface MsFileMapper
      * @return 结果
      */
     public int deleteMsFileByIds(String[] ids);
+
 }

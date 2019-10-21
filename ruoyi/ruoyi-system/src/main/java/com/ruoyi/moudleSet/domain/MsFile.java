@@ -33,6 +33,9 @@ public class MsFile extends BaseEntity {
     /** 文件保存名称 */
     private String saveName;
 
+    /** 文件转换状态 */
+    private String state;
+
     /** 创建时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
@@ -101,6 +104,14 @@ public class MsFile extends BaseEntity {
         this.updateTime = updateTime;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
         return "MsFile{" +
@@ -109,6 +120,7 @@ public class MsFile extends BaseEntity {
                 ", filePath='" + filePath + '\'' +
                 ", fileType='" + fileType + '\'' +
                 ", saveName='" + saveName + '\'' +
+                ", state='" + state + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

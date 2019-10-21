@@ -59,14 +59,46 @@
         });
 
         $('#file').on('filebatchuploadcomplete',function (event,files,extra) {
+            var turn = 0;
+
             if("error" == state){
                 layer.msg('上传失败', {icon: 5});//弹框提示
                 return false;
             }else{
-                layer.msg('上传成功', {icon: 6});//弹框提示
-                setTimeout(function(){ //执行延时关闭
-                  return true;
-                },1000);
+                var str = $("#fileName").val();
+                str = str.split(".");
+                if("pdf" == str[1]){
+
+                }else{
+                    layer.confirm('上传成功，是否转换为PDF文件？', {
+                        btn: ['转换','不转换'] //按钮
+                    }, function(index){
+                        layer.close(index);
+                        $.ajax({
+                            type: "get",
+                            url: prefix+"/trunPdf",
+                            data: {
+                                fileName:$("#fileName").val(),
+                                filePath:$("#filePath").val(),
+                                saveName:$("#saveName").val()
+                            },
+                            dataType: 'json',
+                            beforeSend:function () {
+                                $.modal.loading("正在转换文件，请稍后...");
+                            },
+                            success: function(data) {
+                                layer.msg(data.msg, {
+                                    icon: 1,
+                                    time: 2000
+                                });
+                                $.modal.closeLoading();
+                            }
+                        });
+                    });
+                }
+
+
+
             }
 
         });

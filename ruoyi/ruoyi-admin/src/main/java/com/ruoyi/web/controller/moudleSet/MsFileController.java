@@ -152,5 +152,11 @@ public class MsFileController extends BaseController
         }
 
     }
+
+    @GetMapping("trunPdf")
+    @ResponseBody
+    public AjaxResult trunPdf(String fileName,String filePath,String saveName){
+        return AjaxResult.success("转换完成");
+    }
 }
 
