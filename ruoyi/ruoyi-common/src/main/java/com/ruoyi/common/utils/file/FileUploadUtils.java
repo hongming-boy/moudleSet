@@ -114,8 +114,9 @@ public class FileUploadUtils
 
         File desc = getAbsoluteFile(baseDir, fileName);
         file.transferTo(desc);
-        String pathFileName = getPathFileName(baseDir, fileName);
-        return pathFileName;
+     /*   String pathFileName = getPathFileName(baseDir, fileName);
+        return pathFileName;*/
+        return fileName;
     }
 
     /**
@@ -125,7 +126,9 @@ public class FileUploadUtils
     {
         String fileName = file.getOriginalFilename();
         String extension = getExtension(file);
-        fileName = DateUtils.datePath() + "/" + encodingFilename(fileName) + "." + extension;
+        //去掉年月日
+        /*fileName = DateUtils.datePath() + "/" + encodingFilename(fileName) + "." + extension;*/
+        fileName = encodingFilename(fileName) + "." + extension;
         return fileName;
     }
 

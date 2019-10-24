@@ -142,20 +142,21 @@ public class MsFileController extends BaseController
             fileName = file.getOriginalFilename();
             // 获取上传文件路径
             filePath = Global.getProfile()+Global.getFileUpload();
-            // 上传并返回新文件名称(包含路径)
+            // 上传并返回新文件名称
             newFileName = FileUploadUtils.upload(filePath,file);
-            String [] str = subFilePath(newFileName);
+            String newFIlePath = Global.getFileUpload();
 
-            return AjaxResult.success(new String[]{str[0],str[1],fileName});
+            return AjaxResult.success(new String[]{newFileName,newFIlePath,fileName});
         }else{
             return AjaxResult.error("上传失败");
         }
 
     }
 
-    @GetMapping("trunPdf")
+    @GetMapping("/trunPdf")
     @ResponseBody
     public AjaxResult trunPdf(String fileName,String filePath,String saveName){
+        String str = filePath + "/" + saveName;
         return AjaxResult.success("转换完成");
     }
 }

@@ -15,7 +15,7 @@ ruoyi:
   #文件上传地址
   fileUpload: file
   #文件下载路径
-  download: profile/file
+  download: file
 
 # 开发环境配置
 server:

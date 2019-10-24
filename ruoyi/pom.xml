@@ -169,12 +169,12 @@
 			</dependency>
             
             <!-- 定时任务-->
-			<dependency>
+			<!--<dependency>
 				<groupId>com.ruoyi</groupId>
 				<artifactId>ruoyi-quartz</artifactId>
 				<version>${ruoyi.version}</version>
 			</dependency>
-	
+	-->
 			<!-- 代码生成-->
 			<dependency>
 				<groupId>com.ruoyi</groupId>
