@@ -42,12 +42,12 @@ public class TestWorldToJpg {
                     .getWidth(), (int) page.getBBox().getHeight());
 
             // generate the image
-            Image img = page.getImage(rect.width, rect.height, // width &
-                    // height
-                    rect, // clip rect
-                    null, // null for the ImageObserver
-                    true, // fill background with white
-                    true // block until drawing is done
+            Image img = page.getImage(rect.width, rect.height,
+
+                    rect,
+                    null,
+                    true,
+                    true
             );
 
             BufferedImage tag = new BufferedImage(rect.width, rect.height,
@@ -56,9 +56,9 @@ public class TestWorldToJpg {
                     null);
             FileOutputStream out = new FileOutputStream(
                     imgPath
-                            +"图片"+ i + ".jpg"); // 输出到文件流
+                            +"图片"+ i + ".jpg");
             JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-            encoder.encode(tag); // JPEG编码
+            encoder.encode(tag);
 
             out.close();
         }
