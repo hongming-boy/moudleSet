@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('')" />
+</head>
+
+<body>
+<div>
+    <input id="fileNamew" name="fileNamew" type="hidden" >
+    <div class="col-sm-11" id="photo_image">
+
+    </div>
+</div>
+</body>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+
+    var prefix = ctx + "moudleSet/info";
+    //数值回显g
+    var callbackdata = function () {
+
+        var filePath=$("#filePath").val();
+        if(filePath != null && filePath != ""){
+            //图片上传
+            var formData = new FormData();
+            if ($('#filePath')[0].files[0] == null) {
+                $.modal.alertWarning("请先选择文件路径");
+                return false;
+            }
+            formData.append('fileName', $("#fileName").val());
+            formData.append('file', $('#filePath')[0].files[0]);
+            $.ajax({
+                url:prefix+"/uploadImg",
+                data:formData,
+                type:"post",
+                processData: false,
+                contentType: false,
+                async:false,
+                success: function(data){
+                    var photo = data.fileNamew + "";
+                    $("#photoId").val(photo);
+                },
+                error: function(){
+                    $.modal.closeLoading();
+                    return;
+                }
+            });
+        }else{
+
+        }
+
+        var photo = $("#fileNamew").val();
+        data ={
+            fileNamew : photo
+        };
+        //function返回一个data值，达到回显数据效果
+        return data;
+    };
+
+    //显示照片
+    $(function () {
+        var fileNamew = sessionStorage.getItem("photo");
+        sessionStorage.removeItem("photo");
+        if (fileNamew != null && fileNamew != ""){
+            var html = "";
+            html = $.table.imageView(fileNamew)+"<a onclick='newImage()'>&nbsp;&nbsp;重新选择图片</a>";
+            $("#photo_image").append(html);
+
+        }else{
+            $("#photo_image").html("");
+            var html = '<input id="filePath" name="filePath" style="border: 0px"  class="form-control" type="file">'
+            $("#photo_image").append(html);
+        }
+    });
+
+    function newImage() {
+        $("#photo_image").html("");
+        var html = '<input id="filePath" name="filePath"  class="form-control" type="file">'
+        $("#photo_image").append(html);
+    }
+
+</script>
+</html>

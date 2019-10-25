@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('')" />
+</head>
+
+<body>
+<div>
+    <input id="filePath" name="filePath" class="form-control" type="file" style="border: 0px" >
+    <input id="fileNamew" name="fileNamew" type="hidden" >
+</div>
+</body>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+    var prefix = ctx + "moudleSet/info";
+    //数值回显
+    var callbackdata = function () {
+
+        var filePath=$("#filePath").val();
+        if(filePath != null && filePath != ""){
+            //图片上传
+            var formData = new FormData();
+            if ($('#filePath')[0].files[0] == null) {
+                $.modal.alertWarning("请先选择文件路径");
+                return false;
+            }
+            formData.append('fileName', $("#fileName").val());
+            formData.append('file', $('#filePath')[0].files[0]);
+            $.ajax({
+                url:prefix+"/uploadImg",
+                data:formData,
+                type:"post",
+                processData: false,
+                contentType: false,
+                async:false,
+                success: function(data){
+                    var photo = data.fileNamew + "";
+                    $("#fileNamew").val(photo);
+                },
+                error: function(){
+                    $.modal.closeLoading();
+                    return;
+                }
+            });
+        }else{
+
+        }
+
+        var photo = $("#fileNamew").val();
+        data ={
+            fileNamew : photo
+        };
+        //function返回一个data值，达到回显数据效果
+        return data;
+    };
+
+</script>
+</html>

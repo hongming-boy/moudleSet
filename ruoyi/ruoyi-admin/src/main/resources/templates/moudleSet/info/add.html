@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增图片上传')" />
+    <th:block th:include="include :: datetimepicker-css" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-info-add">
+            <div class="row">
+                <table class="table table-bordered" width="50%">
+                    <tr style="height: 35px;">
+                        <td class="col-md-2 " style="height: 30px;text-align: center;  background-color: whitesmoke;width: 150px">创建人名：</td>
+                        <td class="col-md-8"  style="position: relative;">
+                            <input id="name" name="name" class="form-control" type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-2 " style="height: 30px;text-align: center;  background-color: whitesmoke;width: 150px">创建时间：</td>
+                        <td class="col-md-8"  style="position: relative;">
+                            <div>
+                                <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input name="creationTime" class="form-control" placeholder="yyyy-MM-dd" type="text"style="height:35px;">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <table class="table table-bordered" width="50%">
+                    <tr style="height: 35px;">
+                        <input type="button" class="btn-success" onclick="openMap('fileNamew','添加上传图片1')" value="上传图片1" />
+                        <td class="col-md-2 " style="height: 30px;text-align: center;  background-color: whitesmoke;width: 150px">图片1：</td>
+                        <td class="col-md-8"  style="position: relative;">
+                            <input id="fileNamew" name="fileNamew" class="form-control" type="text" readonly>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <table class="table table-bordered" width="50%">
+                    <tr style="height: 35px;">
+                        <input type="button" class="btn-success" onclick="openMap('fileNamet','添加上传图片2')" value="上传图片2" />
+                        <td class="col-md-2 " style="height: 30px;text-align: center;  background-color: whitesmoke;width: 150px">图片2：</td>
+                        <td class="col-md-8"  style="position: relative;">
+                            <input id="fileNamet" name="fileNamet" class="form-control" type="text" readonly>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: datetimepicker-js" />
+    <script type="text/javascript">
+        var prefix = ctx + "moudleSet/info"
+        $("#form-info-add").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-info-add').serialize());
+            }
+        }
+
+        $("input[name='creationTime']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+    </script><script>
+        function openMap(id,title) {
+            window.IspPoint = false;
+            parent.layer.open({
+                type: 2,//弹窗类型 ['dialog', 'page', 'iframe', 'loading', 'tips']
+                area: ['1200px', '600px'],
+                shift: 2,//可选动画类型0-6
+                scrollbar: false,
+                title: title,
+                closeBtn: false,
+                content: prefix + "/addImg",
+                btn: ['确定','取消'],
+                //这里yes:function为设置的第一个按钮的function，后面设置的按钮默认点击关闭
+                yes: function (index, layero) {
+                    //需要回显的值
+                    //layero为当前的DOM对象，去找打开的iframe转成DOM对象调用子页面其中的function (callbackdata)
+                    var res = $(layero).find("iframe")[0].contentWindow.callbackdata();
+                    //把回显的值赋给需要显示的地方
+                    $("#"+id).val(res.fileNamew);
+                    //关闭子页面
+                    parent.layer.close(index);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

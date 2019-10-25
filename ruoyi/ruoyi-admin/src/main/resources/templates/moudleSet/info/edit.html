@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改图片上传')" />
+    <th:block th:include="include :: datetimepicker-css" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-info-edit" th:object="${fileInfo}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">创建名字：</label>
+                <div class="col-sm-8">
+                    <input name="name" th:field="*{name}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">创建时间：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input name="creationTime" th:value="${#dates.format(fileInfo.creationTime, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table table-bordered" width="50%">
+                    <tr style="height: 35px;">
+                        <input type="button" class="btn-success" onclick="openMap('fileNamew','查看图片1')" value="图片1" />
+                        <td class="col-md-2 " style="height: 30px;text-align: center;  background-color: whitesmoke;width: 150px">图片1：</td>
+                        <td class="col-md-8"  style="position: relative;">
+                            <input id="fileNamew" name="fileNamew" th:field="*{fileNamew}" class="form-control" type="text" readonly>
+                        </td>
+                    </tr>
+                </table>
+                <table class="table table-bordered" width="50%">
+                    <tr style="height: 35px;">
+                        <input type="button" class="btn-success" onclick="openMap('fileNamet','查看图片2')" value="图片2" />
+                        <td class="col-md-2 " style="height: 30px;text-align: center;  background-color: whitesmoke;width: 150px">图片2：</td>
+                        <td class="col-md-8"  style="position: relative;">
+                            <input id="fileNamet" name="fileNamet" th:field="*{fileNamet}" class="form-control" type="text" readonly>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: datetimepicker-js" />
+    <script type="text/javascript">
+        var prefix = ctx + "moudleSet/info";
+        $("#form-info-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-info-edit').serialize());
+            }
+        }
+
+        $("input[name='creationTime']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+    </script>
+    <script>
+        function openMap(id,title) {
+            sessionStorage.setItem("photo",$("#"+id).val());
+            window.IspPoint = false;
+            parent.layer.open({
+                type: 2,//弹窗类型 ['dialog', 'page', 'iframe', 'loading', 'tips']
+                area: ['1200px', '600px'],
+                shift: 2,//可选动画类型0-6
+                scrollbar: false,
+                title: title,
+                closeBtn: false,
+                content: prefix + "/editImg",
+                btn: ['确定','取消'],
+                //这里yes:function为设置的第一个按钮的function，后面设置的按钮默认点击关闭
+                yes: function (index, layero) {
+                    //需要回显的值
+                    //layero为当前的DOM对象，去找打开的iframe转成DOM对象调用子页面其中的function (callbackdata)
+                    var res = $(layero).find("iframe")[0].contentWindow.callbackdata();
+                    //把回显的值赋给需要显示的地方
+                    alert(res.photoId);
+                    $("#"+id).val(res.photoId);
+                    //关闭子页面
+                    parent.layer.close(index);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
