@@ -39,10 +39,13 @@ public class ZipTest {
         String entryname = "abc";
         try {
 //			System.out.println(file.toString());
-            ZipFile zip = new ZipFile(file);//由指定的File对象打开供阅读的ZIP文件
-            Enumeration<ZipEntry> entries = (Enumeration<ZipEntry>) zip.entries();//获取zip文件中的各条目（子文件）
+            //由指定的File对象打开供阅读的ZIP文件
+            ZipFile zip = new ZipFile(file);
+            //获取zip文件中的各条目（子文件）
+            Enumeration<ZipEntry> entries = (Enumeration<ZipEntry>) zip.entries();
 //			ZipInputStream zis = new ZipInputStream(zip.getInputStream(zip.entries().nextElement()));
-            while(entries.hasMoreElements()){//依次访问各条目
+            //依次访问各条目
+            while(entries.hasMoreElements()){
                 ZipEntry ze = (ZipEntry) entries.nextElement();
                 BufferedReader br = new BufferedReader(new InputStreamReader(zip.getInputStream(ze)));
                 System.out.println("\n"+ze.getName()+":");
@@ -71,7 +74,8 @@ public class ZipTest {
 //			System.out.println(file.toString());
             ZipFile zip = new ZipFile(file);
 //			ZipInputStream zis = new ZipInputStream(zip.getInputStream(zip.entries().nextElement()));
-            ZipEntry ze = zip.getEntry(entryname);//根据文件名取得压缩包中的对应条目
+            //根据文件名取得压缩包中的对应条目
+            ZipEntry ze = zip.getEntry(entryname);
             System.out.println(ze.getName()+":");
             BufferedReader br = new BufferedReader(new InputStreamReader(zip.getInputStream(ze)));
             String line ;
