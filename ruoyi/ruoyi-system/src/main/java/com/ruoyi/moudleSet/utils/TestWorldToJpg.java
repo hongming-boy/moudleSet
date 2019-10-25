@@ -71,7 +71,7 @@ public class TestWorldToJpg {
             @Override
             public void run() {
                 try {
-                    TestWorldToJpg.setup("F:\\新建文件夹\\noteBook(1).pdf","F:\\新建文件夹\\");
+                    TestWorldToJpg.setup("E:\\pdf\\noteBook.pdf","E:\\pdf\\");
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
