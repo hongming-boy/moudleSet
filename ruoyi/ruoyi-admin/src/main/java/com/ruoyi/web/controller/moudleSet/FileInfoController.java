@@ -33,6 +33,9 @@ import java.util.Map;
 public class FileInfoController extends BaseController
 {
     private String prefix = "moudleSet/info";
+    private String prefix = "moudleSet/info";
+
+
 
     @Autowired
     private IFileInfoService fileInfoService;
