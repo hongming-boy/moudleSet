@@ -6,13 +6,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class zip_utif {
-
-
-    
     public static void main(String[] args) throws IOException {
 
         //获取文件输入流
-        FileInputStream input = new FileInputStream("F:\\新建文件夹\\number.zip");
+        FileInputStream input = new FileInputStream("E:\\pdf\\笔记.zip");
 
         //获取ZIP输入流(一定要指定字符集Charset.forName("GBK")否则会报java.lang.IllegalArgumentException: MALFORMED)
         ZipInputStream zipInputStream = new ZipInputStream(new BufferedInputStream(input), Charset.forName("GBK"));
